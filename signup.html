@@ -1,0 +1,41 @@
+<html>
+<head>
+<title>sign up</title>
+<!-- Include CSS File Here -->
+<link rel="stylesheet" href="css/styles.css"/>
+<!-- Include JS File Here -->
+<script src="js/signup.js"></script>
+</head>
+<body>
+<div class="container">
+<div class="main">
+<h2>Sign up</h2>
+<form id="form_id" method="post" name="myform">
+<label>First Name :</label>
+<div data-validate = "First Name should not be blank">
+<input type="text" name="firstname" id="fname" required/>
+</div>
+<label>Last Name :</label>
+<div data-validate = "Last Name should not be blank">
+<input type="text" name="lastname" id="lname" required/>
+</div>
+<label>Email :</label>
+<div data-validate = "email should not be blank">
+<input type="text" name="email" id="email" required onblur="validateEmail(this)"/>
+</div>
+
+<label>User Name :</label>
+<div data-validate = "Username should not be blank">
+<input type="text" name="username" id="uname"/>
+</div>
+<label>Password :</label>
+<input type="password" name="password" id="password" onblur="valpass()"/>
+
+<input type="button" value="Login" id="submit" onclick="val()"/>
+
+</form>
+<!--<span><b class="note">Note : </b>For this demo use following username and password. <br/><b class="valid">User Name : Formget<br/>Password : formget#123</b></span>-->
+</div>
+</div>
+</body>
+</html>

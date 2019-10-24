@@ -1,0 +1,104 @@
+<html>
+<head>
+  <head>
+  <link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <!------ Include the above in your HEAD tag ---------->
+  <link rel="stylesheet" href="../css/styles.css"/>
+  </head>
+
+<body>
+
+    <div id="login">
+        <h3 class="text-center text-white pt-5">Login form</h3>
+		<form id="form_id" method="post" name="myform">
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" action="" method="post">
+                            <h3 class="text-center text-info">Login</h3>
+                            <div class="form-group">
+                                <label for="username" class="text-info">Username:</label><br>
+                                <input type="text" name="uname" id="username" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="text-info">Password:</label><br>
+                                <input type="password" name="pass" id="password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
+                                <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+                            </div>
+                            <div id="register-link" class="text-right">
+                                <a href="vsignup.php" class="text-info">Register here</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+		</form>
+    </div>
+</body>
+</html>
+<?php
+// Start the session
+session_start();
+?>
+
+<?php
+if(isset($_POST['submit']))
+{
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "registration";
+$idname=$_POST['uname'];
+$idpass=$_POST['pass'];
+$uname="balaji";
+$pass="balaji";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+$_SESSION["name"]=$idname;
+//$re=mysqli_query($con,$sql);
+$sql = "SELECT pass FROM client where email='$idname'";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0)
+{
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+		//$uname=$row["email"];
+		$pass=$row["pass"];
+		//echo "name" . $uname ."<br>";
+		echo "pass" . $pass ."<br>";
+        echo "id: " . "$idname" . " - Name: " . $row["pass"]. "<br>";
+	}
+    if ($pass == $idpass)
+    $_SESSION['status']="Active";
+      echo '<script type="text/javascript">
+
+          window.onload = function () { alert("Login Successfull"); }
+		  window.location = "vhome.php"; // Redirecting to other page.
+
+</script>';
+	//echo "login ok da";
+}
+else {
+    echo "0 results";
+	echo $uname;
+	echo $pass;
+	echo $idname;
+	echo $idpass;
+
+}
+$conn->close();
+}
+?>
